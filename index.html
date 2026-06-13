@@ -418,16 +418,14 @@
         if (answers[currentQuestion] === index) {
           btn.classList.add("selected");
         }
-        btn.addEventListener("click", () => {
-          answers[currentQuestion] = index;
-          Array.from(optionsListEl.querySelectorAll(".option-button")).forEach(b => {
-            b.classList.toggle("selected", b === btn);
-          });
-          toggleNavButtons();
-        });
-        li.appendChild(btn);
-        optionsListEl.appendChild(li);
-      });
+  btn.addEventListener("click", () => {
+    answers[currentQuestion] = index;
+    Array.from(optionsListEl.querySelectorAll(".option-button")).forEach(b => {
+      b.classList.toggle("selected", b === btn);
+    });
+    toggleNavButtons();
+    updateSubmitVisibility(); // new line: ensures the Submit button appears on the last question
+  });
 
       prevBtn.disabled = currentQuestion === 0;
       toggleNavButtons();
