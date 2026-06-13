@@ -255,6 +255,7 @@
 
 <div class="result" id="resultScreen" style="display:none;">
   <img id="resultImage" src="" alt="" style="max-width:100%; border-radius:12px; margin-bottom:12px; display:none;">
+  <div id="resultText"></div>
 </div>
       <div class="restart">
         <button id="restartBtn" style="display:none;">Start again</button>
@@ -410,6 +411,7 @@
     const quizScreen = document.getElementById("quizScreen");
     const restartBtn = document.getElementById("restartBtn");
     const resultImageEl = document.getElementById("resultImage");
+    const resultTextEl = document.getElementById("resultText");
 
     function renderQuestion() {
       const total = quizData.length;
@@ -511,7 +513,7 @@
       });
       html += `</div>`;
 
-      resultScreen.innerHTML = html;
+      resultTextEl.innerHTML = html;
     }
 
     prevBtn.addEventListener("click", () => {
