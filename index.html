@@ -41,4 +41,488 @@
     }
 
     .quiz-container-inner {
-      backgr
+      background: radial-gradient(circle at top right, #1d1635 0, #111018 50%, #07060c 100%);
+      border-radius: 16px;
+      padding: 24px 22px 28px;
+    }
+
+    h1 {
+      font-size: 1.7rem;
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: #ffffff;
+    }
+
+    .subtitle {
+      font-size: 0.9rem;
+      color: var(--accent-soft);
+      margin-bottom: 1.25rem;
+    }
+
+    .question-number {
+      font-size: 0.8rem;
+      color: var(--accent-2);
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+      margin-bottom: 0.35rem;
+    }
+
+    .question-text {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-main);
+    }
+
+    .options {
+      list-style: none;
+      padding: 0;
+      margin: 0 0 1.5rem 0;
+    }
+
+    .options li {
+      margin-bottom: 0.6rem;
+    }
+
+    .option-button {
+      width: 100%;
+      display: block;
+      text-align: left;
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      padding: 0.7rem 1rem;
+      font-size: 0.95rem;
+      cursor: pointer;
+      background: rgba(8,7,14,0.9);
+      color: var(--text-main);
+      transition: all 0.18s ease;
+    }
+
+    .option-button:hover {
+      border-color: var(--accent-soft);
+      background: rgba(255,46,139,0.08);
+      transform: translateY(-1px);
+    }
+
+    .option-button.selected {
+      background: linear-gradient(90deg, var(--accent), var(--accent-2));
+      color: #05040a;
+      border-color: transparent;
+      box-shadow: 0 0 0 1px rgba(0,0,0,0.4);
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 1rem;
+    }
+
+    button.nav {
+      flex: 1;
+      padding: 0.7rem 0.9rem;
+      border-radius: 999px;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: background 0.18s ease, transform 0.08s ease, box-shadow 0.18s ease;
+    }
+
+    button.nav:disabled {
+      opacity: 0.25;
+      cursor: default;
+    }
+
+    #prevBtn {
+      background: #1c1925;
+      color: var(--text-muted);
+    }
+
+    #prevBtn:hover:not(:disabled) {
+      background: #262335;
+    }
+
+    #nextBtn {
+      background: var(--accent);
+      color: #05040a;
+      box-shadow: 0 8px 18px rgba(255,46,139,0.45);
+    }
+
+    #nextBtn:hover:not(:disabled) {
+      background: #ff4a9a;
+    }
+
+    #submitBtn {
+      background: var(--accent-2);
+      color: #05040a;
+      display: none;
+      box-shadow: 0 8px 18px rgba(29,233,182,0.45);
+    }
+
+    button.nav:not(:disabled):active {
+      transform: translateY(1px);
+      box-shadow: none;
+    }
+
+    .progress {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .result {
+      margin-top: 1.1rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(255,255,255,0.06);
+    }
+
+    .result-title {
+      font-weight: 600;
+      margin-bottom: 0.35rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent-soft);
+    }
+
+    .badge {
+      display: inline-block;
+      padding: 0.28rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.8rem;
+      margin: 0.15rem 0.2rem 0.15rem 0;
+      background: rgba(255,255,255,0.06);
+      color: var(--accent-soft);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .archetype-description {
+      margin-top: 0.35rem;
+      font-size: 0.95rem;
+      color: var(--text-main);
+    }
+
+    .restart {
+      margin-top: 1.25rem;
+      text-align: right;
+    }
+
+    .restart button {
+      border-radius: 999px;
+      border: 1px solid var(--border-subtle);
+      background: rgba(8,7,14,0.9);
+      cursor: pointer;
+      padding: 0.45rem 0.9rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      transition: all 0.18s ease;
+    }
+
+    .restart button:hover {
+      border-color: var(--accent-soft);
+      color: var(--accent-soft);
+    }
+
+    @media (max-width: 600px) {
+      .quiz-container-inner {
+        padding: 18px 16px 22px;
+      }
+      h1 { font-size: 1.45rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="quiz-container">
+    <div class="quiz-container-inner">
+      <h1>What kind of art collector are you?</h1>
+      <p class="subtitle">
+        Click through the questions to discover your collector archetype mix.
+      </p>
+
+      <div id="quizScreen">
+        <div class="question-number" id="questionNumber"></div>
+        <div class="question-text" id="questionText"></div>
+        <ul class="options" id="optionsList"></ul>
+
+        <div class="buttons">
+          <button class="nav" id="prevBtn">Back</button>
+          <button class="nav" id="nextBtn">Next</button>
+          <button class="nav" id="submitBtn">See my archetype</button>
+        </div>
+
+        <div class="progress" id="progressText"></div>
+      </div>
+
+      <div class="result" id="resultScreen" style="display:none;"></div>
+
+      <div class="restart">
+        <button id="restartBtn" style="display:none;">Start again</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const archetypes = ["Networker", "Devotee", "Patron", "Steward", "Strategist", "Futurist"];
+
+    const quizData = [
+      {
+        question: "At an art fair, what do you do first?",
+        options: [
+          { text: "Head straight to booths where you know the gallerists.", type: "Networker" },
+          { text: "Look for artists you emotionally connect with.", type: "Devotee" },
+          { text: "Visit galleries whose programs you support long-term.", type: "Patron" },
+          { text: "Check the institutions’ presentations and museum collaborations.", type: "Steward" },
+          { text: "Scan price lists and recent auction results.", type: "Strategist" },
+          { text: "Seek out experimental, digital, or AI-driven works.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "What matters most when you decide to buy a work?",
+        options: [
+          { text: "How it strengthens relationships in the art world.", type: "Networker" },
+          { text: "Whether you feel a strong emotional pull.", type: "Devotee" },
+          { text: "How it supports the artist’s practice and career.", type: "Patron" },
+          { text: "Its role in a broader cultural or historical narrative.", type: "Steward" },
+          { text: "Its long-term value and market trajectory.", type: "Strategist" },
+          { text: "How innovative and future-oriented it feels.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "How do you usually discover new artists?",
+        options: [
+          { text: "Through openings, dinners, and art-world events.", type: "Networker" },
+          { text: "Following artists you already love and their circles.", type: "Devotee" },
+          { text: "Recommendations from galleries you trust and support.", type: "Patron" },
+          { text: "Museum shows, biennials, and institutional programs.", type: "Steward" },
+          { text: "Researching online, reading reports, tracking trends.", type: "Strategist" },
+          { text: "Exploring digital platforms, residencies, and new media spaces.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "How do you talk about your collection to others?",
+        options: [
+          { text: "As a way to connect people and spark conversations.", type: "Networker" },
+          { text: "As a diary of the artists and works you love.", type: "Devotee" },
+          { text: "As a way of standing behind artists you believe in.", type: "Patron" },
+          { text: "As a contribution to cultural memory and institutions.", type: "Steward" },
+          { text: "As a carefully built, well-researched portfolio.", type: "Strategist" },
+          { text: "As a glimpse into how art and society might evolve.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "When you visit a gallery, what do you pay attention to most?",
+        options: [
+          { text: "Who is there and the conversations happening.", type: "Networker" },
+          { text: "Your gut reaction to each work in the space.", type: "Devotee" },
+          { text: "How the gallery supports and promotes its artists.", type: "Patron" },
+          { text: "The curatorial concept and exhibition text.", type: "Steward" },
+          { text: "Pricing, edition sizes, and artist career milestones.", type: "Strategist" },
+          { text: "New formats, materials, and hybrid or tech-based works.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "How do you feel about reselling works from your collection?",
+        options: [
+          { text: "I only sell if it helps me rebalance relationships in my network.", type: "Networker" },
+          { text: "I am reluctant; I get attached and prefer to keep pieces.", type: "Devotee" },
+          { text: "I consider it when it benefits the artist or their market.", type: "Patron" },
+          { text: "I think about where the work will go next, ideally an institution.", type: "Steward" },
+          { text: "It’s part of my strategy; I plan sales carefully.", type: "Strategist" },
+          { text: "I’m open, especially if it frees resources for new directions.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "What kind of art event excites you most?",
+        options: [
+          { text: "A crowded opening where everyone is talking and connecting.", type: "Networker" },
+          { text: "An intimate studio visit with an artist you admire.", type: "Devotee" },
+          { text: "A fundraising auction or benefit for an art space.", type: "Patron" },
+          { text: "A major museum show or collection tour.", type: "Steward" },
+          { text: "A market-focused fair or conference with data and talks.", type: "Strategist" },
+          { text: "A festival for digital, immersive, or experimental art.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "How do you store or display your collection?",
+        options: [
+          { text: "I love rotating works when guests come over.", type: "Networker" },
+          { text: "I hang pieces where I see them every day.", type: "Devotee" },
+          { text: "I work with framers and installers to do it ‘properly’.", type: "Patron" },
+          { text: "I think about conservation, conditions, and future loans.", type: "Steward" },
+          { text: "I track everything with inventories and documentation.", type: "Strategist" },
+          { text: "I experiment with new formats, screens, or hybrid setups.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "How do you prepare before buying an artwork?",
+        options: [
+          { text: "I talk to friends, gallerists, and other collectors.", type: "Networker" },
+          { text: "I revisit the work and notice how it makes me feel over time.", type: "Devotee" },
+          { text: "I learn more about the artist’s practice and needs.", type: "Patron" },
+          { text: "I read about the artist’s context, texts, and exhibitions.", type: "Steward" },
+          { text: "I research prices, past sales, and market indicators.", type: "Strategist" },
+          { text: "I consider how it fits into larger cultural and tech shifts.", type: "Futurist" }
+        ]
+      },
+      {
+        question: "When you imagine the future of your collection, what matters most?",
+        options: [
+          { text: "That it keeps bringing interesting people together.", type: "Networker" },
+          { text: "That it still feels deeply personal and meaningful.", type: "Devotee" },
+          { text: "That it has helped sustain the artists and spaces you care about.", type: "Patron" },
+          { text: "That parts of it eventually belong in public or institutional collections.", type: "Steward" },
+          { text: "That it proves to have been a smart, disciplined set of choices.", type: "Strategist" },
+          { text: "That it reflects how early you were in spotting new directions.", type: "Futurist" }
+        ]
+      }
+    ];
+
+    const descriptions = {
+      Networker: "You thrive on relationships. Openings, fairs, and studio visits are your element, and your collection grows through conversations and connections.",
+      Devotee: "You collect with your heart. You follow artists over time and buy what moves you, even if it is not the obvious choice.",
+      Patron: "You see collecting as support. You build long-term relationships with artists and galleries and help sustain practices you believe in.",
+      Steward: "You think about legacy. You care how works live in archives, museums, and public memory, and you often collaborate with institutions.",
+      Strategist: "You are highly analytical. You track markets, do your research, and approach collecting as a disciplined, long-term project.",
+      Futurist: "You look around the corner. You gravitate to experimental practices, new media, and ideas that feel ahead of their time."
+    };
+
+    let currentQuestion = 0;
+    const answers = new Array(quizData.length).fill(null);
+
+    const questionNumberEl = document.getElementById("questionNumber");
+    const questionTextEl = document.getElementById("questionText");
+    const optionsListEl = document.getElementById("optionsList");
+    const progressTextEl = document.getElementById("progressText");
+    const prevBtn = document.getElementById("prevBtn");
+    const nextBtn = document.getElementById("nextBtn");
+    const submitBtn = document.getElementById("submitBtn");
+    const resultScreen = document.getElementById("resultScreen");
+    const quizScreen = document.getElementById("quizScreen");
+    const restartBtn = document.getElementById("restartBtn");
+
+    function renderQuestion() {
+      const total = quizData.length;
+      const q = quizData[currentQuestion];
+
+      questionNumberEl.textContent = `Question ${currentQuestion + 1} of ${total}`;
+      questionTextEl.textContent = q.question;
+      progressTextEl.textContent = `Answered ${answers.filter(a => a !== null).length} of ${total}`;
+
+      optionsListEl.innerHTML = "";
+      q.options.forEach((opt, index) => {
+        const li = document.createElement("li");
+        const btn = document.createElement("button");
+        btn.className = "option-button";
+        btn.textContent = opt.text;
+        btn.dataset.index = index;
+        if (answers[currentQuestion] === index) {
+          btn.classList.add("selected");
+        }
+        btn.addEventListener("click", () => {
+          answers[currentQuestion] = index;
+          Array.from(optionsListEl.querySelectorAll(".option-button")).forEach(b => {
+            b.classList.toggle("selected", b === btn);
+          });
+          toggleNavButtons();
+          updateSubmitVisibility(); // ensure Submit appears as soon as last answer is chosen
+        });
+        li.appendChild(btn);
+        optionsListEl.appendChild(li);
+      });
+
+      prevBtn.disabled = currentQuestion === 0;
+      toggleNavButtons();
+      updateSubmitVisibility();
+    }
+
+    function toggleNavButtons() {
+      const isAnswered = answers[currentQuestion] !== null;
+      nextBtn.disabled = !isAnswered || currentQuestion === quizData.length - 1;
+    }
+
+    function updateSubmitVisibility() {
+      const allAnswered = answers.every(a => a !== null);
+      if (currentQuestion === quizData.length - 1 && allAnswered) {
+        nextBtn.style.display = "none";
+        submitBtn.style.display = "inline-block";
+      } else {
+        nextBtn.style.display = "inline-block";
+        submitBtn.style.display = "none";
+      }
+    }
+
+    function calculateResult() {
+      const score = {};
+      archetypes.forEach(type => { score[type] = 0; });
+
+      answers.forEach((answerIndex, qIndex) => {
+        const chosen = quizData[qIndex].options[answerIndex];
+        score[chosen.type] += 1;
+      });
+
+      let bestType = archetypes[0];
+      let bestScore = score[bestType];
+      archetypes.forEach(type => {
+        if (score[type] > bestScore) {
+          bestScore = score[type];
+          bestType = type;
+        }
+      });
+
+      return { bestType, breakdown: score };
+    }
+
+    function showResult() {
+      const { bestType, breakdown } = calculateResult();
+      quizScreen.style.display = "none";
+      resultScreen.style.display = "block";
+      restartBtn.style.display = "inline-block";
+
+      let html = "";
+      html += `<div class="result-title">Your primary archetype:</div>`;
+      html += `<div class="badge">${bestType}</div>`;
+      html += `<div class="archetype-description">${descriptions[bestType]}</div>`;
+
+      html += `<div style="margin-top:0.75rem;font-size:0.9rem;color:#b1b1c3;">Your full mix:</div>`;
+      html += `<div>`;
+      archetypes.forEach(type => {
+        if (breakdown[type] > 0) {
+          html += `<span class="badge">${type}: ${breakdown[type]}</span>`;
+        }
+      });
+      html += `</div>`;
+
+      resultScreen.innerHTML = html;
+    }
+
+    prevBtn.addEventListener("click", () => {
+      if (currentQuestion > 0) {
+        currentQuestion--;
+        renderQuestion();
+      }
+    });
+
+    nextBtn.addEventListener("click", () => {
+      if (currentQuestion < quizData.length - 1) {
+        currentQuestion++;
+        renderQuestion();
+      }
+    });
+
+    submitBtn.addEventListener("click", () => {
+      showResult();
+    });
+
+    restartBtn.addEventListener("click", () => {
+      for (let i = 0; i < answers.length; i++) answers[i] = null;
+      currentQuestion = 0;
+      resultScreen.style.display = "none";
+      quizScreen.style.display = "block";
+      restartBtn.style.display = "none";
+      renderQuestion();
+    });
+
+    renderQuestion();
+  </script>
+</body>
+</html>
