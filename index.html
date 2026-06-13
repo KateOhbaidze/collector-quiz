@@ -253,8 +253,9 @@
         <div class="progress" id="progressText"></div>
       </div>
 
-      <div class="result" id="resultScreen" style="display:none;"></div>
-
+<div class="result" id="resultScreen" style="display:none;">
+  <img id="resultImage" src="" alt="" style="max-width:100%; border-radius:12px; margin-bottom:12px; display:none;">
+</div>
       <div class="restart">
         <button id="restartBtn" style="display:none;">Start again</button>
       </div>
@@ -377,13 +378,22 @@
       }
     ];
 
-    const descriptions = {
+        const descriptions = {
       Networker: "You thrive on relationships. Openings, fairs, and studio visits are your element, and your collection grows through conversations and connections.",
       Devotee: "You collect with your heart. You follow artists over time and buy what moves you, even if it is not the obvious choice.",
       Patron: "You see collecting as support. You build long-term relationships with artists and galleries and help sustain practices you believe in.",
       Steward: "You think about legacy. You care how works live in archives, museums, and public memory, and you often collaborate with institutions.",
       Strategist: "You are highly analytical. You track markets, do your research, and approach collecting as a disciplined, long-term project.",
       Futurist: "You look around the corner. You gravitate to experimental practices, new media, and ideas that feel ahead of their time."
+    };
+
+    const images = {
+      Networker: "networker.png",
+      Devotee: "devotee.png",
+      Patron: "patron.png",
+      Steward: "the steward.png",
+      Strategist: "strategist.png",
+      Futurist: "futurist.png"
     };
 
     let currentQuestion = 0;
@@ -399,6 +409,7 @@
     const resultScreen = document.getElementById("resultScreen");
     const quizScreen = document.getElementById("quizScreen");
     const restartBtn = document.getElementById("restartBtn");
+    const resultImageEl = document.getElementById("resultImage");
 
     function renderQuestion() {
       const total = quizData.length;
@@ -477,6 +488,14 @@
       quizScreen.style.display = "none";
       resultScreen.style.display = "block";
       restartBtn.style.display = "inline-block";
+
+      if (images[bestType]) {
+        resultImageEl.src = images[bestType];
+        resultImageEl.alt = bestType + " illustration";
+        resultImageEl.style.display = "block";
+      } else {
+        resultImageEl.style.display = "none";
+      }
 
       let html = "";
       html += `<div class="result-title">Your primary archetype:</div>`;
