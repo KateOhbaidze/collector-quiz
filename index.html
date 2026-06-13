@@ -253,7 +253,9 @@
         <div class="progress" id="progressText"></div>
       </div>
 
-      <div class="result" id="resultScreen" style="display:none;"></div>
+      <div class="result" id="resultScreen" style="display:none;">
+        <img id="resultImage" src="" alt="" style="max-width:100%; border-radius:12px; margin-bottom:12px; display:none;">
+      </div>
 
       <div class="restart">
         <button id="restartBtn" style="display:none;">Start again</button>
@@ -386,6 +388,15 @@
       Futurist: "You look around the corner. You gravitate to experimental practices, new media, and ideas that feel ahead of their time."
     };
 
+    const images = {
+      Networker: "networker.png",
+      Devotee: "devotee.png",
+      Patron: "patron.png",
+      Steward: "the steward.png",
+      Strategist: "strategist.png",
+      Futurist: "futurist.png"
+    };
+
     let currentQuestion = 0;
     const answers = new Array(quizData.length).fill(null);
 
@@ -399,6 +410,7 @@
     const resultScreen = document.getElementById("resultScreen");
     const quizScreen = document.getElementById("quizScreen");
     const restartBtn = document.getElementById("restartBtn");
+    const resultImageEl = document.getElementById("resultImage");
 
     function renderQuestion() {
       const total = quizData.length;
@@ -424,7 +436,7 @@
             b.classList.toggle("selected", b === btn);
           });
           toggleNavButtons();
-          updateSubmitVisibility(); // ensure Submit appears as soon as last answer is chosen
+          updateSubmitVisibility();
         });
         li.appendChild(btn);
         optionsListEl.appendChild(li);
@@ -478,6 +490,14 @@
       resultScreen.style.display = "block";
       restartBtn.style.display = "inline-block";
 
+      if (images[bestType]) {
+        resultImageEl.src = images[bestType];
+        resultImageEl.alt = bestType + " illustration";
+        resultImageEl.style.display = "block";
+      } else {
+        resultImageEl.style.display = "none";
+      }
+
       let html = "";
       html += `<div class="result-title">Your primary archetype:</div>`;
       html += `<div class="badge">${bestType}</div>`;
@@ -492,6 +512,8 @@
       });
       html += `</div>`;
 
+      resultScreen.innerHTML = resultScreen.innerHTML.split("</imgTagHack>").[0] || "";
+      resultScreen.innerHTML = resultScreen.innerHTML; // placeholder; ignore
       resultScreen.innerHTML = html;
     }
 
